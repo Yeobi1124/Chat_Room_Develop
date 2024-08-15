@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 //@ts-ignore
 import { PeerData, DataType, Position, MsgData } from "./PeerClass";
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 type props = {
     peer : PeerData
@@ -79,17 +81,17 @@ function Lobby({peer, UpdatePos} : props){
             <p>{msg.sender}: {msg.content}</p>
           ))}
         </div>
-        <input
+        <TextField
           type='text'
           placeholder='Enter message'
           value={message}
           onChange={e => (setMessage(() => e.target.value))}
         />
-        <button onClick={() => {sendData(DataType.Msg, {sender : peer.name, senderPeerId : peer.peerID, content : message});}}>Send</button>
+        <Button onClick={() => {sendData(DataType.Msg, {sender : peer.name, senderPeerId : peer.peerID, content : message}); setMessage('');}}>Send</Button>
         
-        {!peer.isAdmin ? <button onClick={() => {sendData(DataType.Ready); setReady(!ready)}} style={{color: ready ? "Green" : "Red"}}>{ready ? "Ready" : "Not Ready"}</button> : null}
-        {peer.isAdmin ? <button onClick={gameStart} style={{color: "Red"}}>Game Start</button>: null}
-        {peer.conn.length ? !peer.conn[0].open ? <button onClick = {() => peer.connectPeer(peer.conn[0].peer)}>재접속</button> : null : null}
+        {!peer.isAdmin ? <Button onClick={() => {sendData(DataType.Ready); setReady(!ready)}} style={{color: ready ? "Green" : "Red"}}>{ready ? "Ready" : "Not Ready"}</Button> : null}
+        {peer.isAdmin ? <Button onClick={gameStart} style={{color: "Red"}}>Game Start</Button>: null}
+        {peer.conn.length ? !peer.conn[0].open ? <Button onClick = {() => peer.connectPeer(peer.conn[0].peer)}>재접속</Button> : null : null}
       </div>
     )
 }

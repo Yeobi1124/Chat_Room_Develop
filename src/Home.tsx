@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { PeerData, Position } from "./PeerClass";
+import { Button, TextField } from "@mui/material";
 
 type props = {
     peer : PeerData
@@ -31,22 +32,22 @@ function Home({peer, UpdatePos} : props){
         <div className="home">
             <h1>Chat Room</h1>
             <h2>Set your name</h2>
-            <input
+            <TextField
                 type="text"
                 placeholder="Enter your name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             />
             <br/>
-            <button onClick={() => GoLobby(true)}>Make Room</button>
+            <Button onClick={() => GoLobby(true)}>Make Room</Button>
             <br/>
-            <input
+            <TextField
                 type="text"
                 placeholder="Enter remote id"
                 value={remotePeerId}
                 onChange={(e) => setRemotePeerId(e.target.value)}
             />
-            <button onClick={() => GoLobby(false)}>Join Room</button>
+            <Button onClick={() => GoLobby(false)}>Join Room</Button>
         </div>
     );
 }
